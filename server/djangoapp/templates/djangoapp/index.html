@@ -1,6 +1,21 @@
 {% extends "djangoapp/layout.html" %}
 
 {% block body %}
-    <!--Add a dealer table here -->
-{% endblock %}
+<h1>Dealers</h1>
+<ul>
+    {% for dealer in dealers %}
+        <li>
+            <strong>Full Name:</strong> {{ dealer.full_name }}<br>
+            <strong>Short Name:</strong> {{ dealer.short_name }}<br>
+            <strong>Address:</strong> {{ dealer.address }}<br>
+            <strong>City:</strong> {{ dealer.city }}<br>
+            <strong>State:</strong> {{ dealer.st }}<br>
+            <strong>Zip Code:</strong> {{ dealer.zip }}<br>
+            <strong>Latitude:</strong> {{ dealer.lat }}<br>
+            <strong>Longitude:</strong> {{ dealer.long }}<br>
+            <strong>ID:</strong> {{ dealer.id }}<br>
+            <hr>
+        </li>
+    {% endfor %}
+</ul>{% endblock %}
  
