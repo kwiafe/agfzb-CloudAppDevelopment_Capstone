@@ -8,9 +8,26 @@
 </head>
 
     <body>
-
+        {% if user.is_authenticated %}
+        <!-- Step 3: Add a link to add_review view -->
+        <a href="{% url 'djangoapp:add_review' %}">Add Review</a>
+        {% endif %}
         <h1>Dealer Reviews</h1>
-        <ul>
+
+        <div class="card-columns">
+            {% for review in reviews %}
+                <div class="card">
+                    <!-- Step 5: Add an <img> for sentiment visualization -->
+                    <img class="card-img-top" src="{{ MEDIA_URL }}/emoji/{{ review.sentiment }}.png" alt="Sentiment Emoji">
+                    <div class="card-body">
+                        <!-- Step 6: Add card-title text labels -->
+                        <h5 class="card-title">{{ review.car_make }} {{ review.car_model }} {{ review.car_year }}</h5>
+                        <p class="card-text">{{ review.review }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- <ul>
             {% for review in reviews %}
                 <li>
                     <strong>Name:</strong> {{ review.name }}<br>
@@ -26,7 +43,7 @@
                     <hr>
                 </li>
             {% endfor %}
-        </ul>
+        </ul> -->
     </body>
 
 </html>

@@ -1,21 +1,37 @@
 {% extends "djangoapp/layout.html" %}
 
 {% block body %}
-<h1>Dealers</h1>
-<ul>
-    {% for dealer in dealers %}
-        <li>
-            <strong>Full Name:</strong> {{ dealer.full_name }}<br>
-            <strong>Short Name:</strong> {{ dealer.short_name }}<br>
-            <strong>Address:</strong> {{ dealer.address }}<br>
-            <strong>City:</strong> {{ dealer.city }}<br>
-            <strong>State:</strong> {{ dealer.st }}<br>
-            <strong>Zip Code:</strong> {{ dealer.zip }}<br>
-            <strong>Latitude:</strong> {{ dealer.lat }}<br>
-            <strong>Longitude:</strong> {{ dealer.long }}<br>
-            <strong>ID:</strong> {{ dealer.id }}<br>
-            <hr>
-        </li>
-    {% endfor %}
-</ul>{% endblock %}
+<h1>Dealerships</h1>
+<table class="table" id="table" data-filter-control="true">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Dealer Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Zip</th>
+            <th data-field="state" data-filter-control="select">State</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dealer in dealerships %}
+            <tr>
+                <td>{{ dealer.id }}</td>
+                <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+                <td>{{ dealer.city }}</td>
+                <td>{{ dealer.address }}</td>
+                <td>{{ dealer.zip }}</td>
+                <td>{{ dealer.st }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(function() {
+      $('#table').bootstrapTable()
+    })
+</script>
+
+{% endblock %}
  
