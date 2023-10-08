@@ -71,13 +71,15 @@ def registration_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
-        url = "https://6655881d-fa8a-4edb-8f45-6c19cf0732f5-bluemix.cloudantnosqldb.appdomain.cloud"
+        # url = "https://6655881d-fa8a-4edb-8f45-6c19cf0732f5-bluemix.cloudantnosqldb.appdomain.cloud/dealerships/dealer-get"
+        url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/6588281e-2e92-42b7-9512-8955ee44d390/dealership-package/get-dealership"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         context['dealerships'] = dealerships
         # Return a list of dealer short name
+        # return HttpResponse(dealer_names)
     return render(request, 'djangoapp/index.html', context)
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
@@ -89,7 +91,8 @@ def get_dealerships(request):
 
 
 def get_dealer_details(request, dealer_id):
-    url = "URL_TO_YOUR_REVIEWS_GET_CLOUD_FUNCTION"  # Replace with the actual URL
+    # url = "URL_TO_YOUR_REVIEWS_GET_CLOUD_FUNCTION"  # Replace with the actual URL
+    url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/6588281e-2e92-42b7-9512-8955ee44d390/review%20package/getReviews"
     reviews = get_dealer_reviews_from_cf(url, dealer_id)
     context = {
         'reviews': reviews
@@ -125,7 +128,7 @@ def add_review(request, dealer_id):
         }
 
         # Step 3: Make a POST request to submit the review
-        response = requests.post("URL_TO_YOUR_REVIEWS_POST_CLOUD_FUNCTION", json=json_payload)
+        response = requests.post("https://eu-gb.functions.cloud.ibm.com/api/v1/namespaces/6588281e-2e92-42b7-9512-8955ee44d390/actions/review%20package/postReview", json=json_payload)
 
         if response.status_code == 200:
             # Step 4: Redirect user to the dealer details page after review submission
