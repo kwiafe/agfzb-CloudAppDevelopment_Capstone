@@ -41,7 +41,7 @@ def custom_login(request):
             # Handle invalid login
             pass  # You can add your own logic here
 
-    return render(request, 'login.html')
+    return render(request, 'djangoapp/login.html')
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
